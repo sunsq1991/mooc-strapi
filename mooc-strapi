@@ -3,6 +3,7 @@
 echo "What is your project name?"
 read project_name
 bucket_name="${project_name}-mooc"
+echo "creating aws bucket ${bucket_name}"
 bucket_result=`aws s3api create-bucket --bucket $bucket_name --acl public-read --region ca-central-1 --create-bucket-configuration LocationConstraint=ca-central-1`
 echo $bucket_result
 if [ -z `echo $bucket_result | jq -r '.Location'` ]
@@ -30,16 +31,16 @@ if [ -z AWS_ACCESS_KEY_ID ]
 then
 exit 1
 fi
-npx create-strapi-app@3.0.2 $project_name --quickstart --no-run
+npx create-strapi-app@3.0.3 $project_name --quickstart --no-run
 cd $project_name
 echo "AWS_BUCKET=${bucket_name}" > .env
 echo "AWS_ACCESS_KEY_ID=${AWS_ACCESS_KEY_ID}" >> .env
 echo "AWS_ACCESS_SECRET=${AWS_ACCESS_SECRET}" >> .env
-npm install strapi-provider-upload-aws-s3 --save
+npm install strapi-provider-upload-aws-s3@3.0.3 --save
 mkdir admin
 cp -R ../src ./admin
-cp ../config/plugin.js ./config/plugin.js
-echo "build"
+cp ../config/plugins.js ./config/plugins.js
+echo "building the project"
 npm run build
-echo "develop"
+echo "starting the project"
 npm run develop
