@@ -15,7 +15,6 @@ fi
 git init
 git add .
 git commit -m "Initial Commit"
-app_name="mooc-strapi-test"
 heroku addons:create heroku-postgresql:hobby-dev -a $app_name
 uri=`heroku config:get DATABASE_URL -a $app_name`
 echo $uri
@@ -40,6 +39,11 @@ heroku config:set DATABASE_PASSWORD=$pass -a $app_name
 heroku config:set DATABASE_HOST=$host -a $app_name
 heroku config:set DATABASE_PORT=$port -a $app_name
 heroku config:set DATABASE_NAME=$db -a $app_name
+
+env=`cat .env`
+echo "$env"
+heroku config:set $env -a $app_name
+
 heroku git:remote -a $app_name
 git push heroku master
 heroku open -a $app_name
