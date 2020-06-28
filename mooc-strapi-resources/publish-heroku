@@ -1,0 +1,45 @@
+#!/bin/bash
+# Script for pushing a mooc-strapi project to heroku
+
+echo "What is your heroku project name?"
+read project_name
+app_result=`heroku create $project_name`
+echo $app_result
+app_name="$(echo $app_result | grep 'https://' | cut -d / -f2- | cut -d '/' -f 2 | cut -d '.' -f 1)"
+echo $app_name
+if [ -z "$app_name" ]
+then
+exit 1
+fi
+
+git init
+git add .
+git commit -m "Initial Commit"
+app_name="mooc-strapi-test"
+heroku addons:create heroku-postgresql:hobby-dev -a $app_name
+uri=`heroku config:get DATABASE_URL -a $app_name`
+echo $uri
+proto="$(echo $uri | grep :// | sed -e's,^\(.*://\).*,\1,g')"
+url="$(echo ${uri/$proto/})"
+userpass="$(echo $url | grep @ | cut -d@ -f1)"
+pass="$(echo $userpass | grep : | cut -d: -f2)"
+user="$(echo $userpass | grep : | cut -d: -f1)"
+hostport="$(echo ${url/$user:$pass@/} | cut -d/ -f1)"
+port="$(echo $hostport | grep : | cut -d: -f2)"
+host="$(echo $hostport | grep : | cut -d: -f1)"
+db="$(echo $url | grep / | cut -d/ -f2-)"
+
+echo "  user: $user"
+echo "  pass: $pass"
+echo "  host: $host"
+echo "  port: $port"
+echo "  db: $db"
+
+heroku config:set DATABASE_USERNAME=$user -a $app_name
+heroku config:set DATABASE_PASSWORD=$pass -a $app_name
+heroku config:set DATABASE_HOST=$host -a $app_name
+heroku config:set DATABASE_PORT=$port -a $app_name
+heroku config:set DATABASE_NAME=$db -a $app_name
+heroku git:remote -a $app_name
+git push heroku master
+heroku open -a $app_name
