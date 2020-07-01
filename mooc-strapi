@@ -46,5 +46,6 @@ cp ../mooc-strapi-resources/publish-heroku ./publish-heroku
 echo '.package-lock.json' >> .gitignore
 echo "building the project"
 npm run build
-echo "starting the project"
-npm run develop
+echo "Project created successfully!"
+echo "Now you can run 'cd $project_name' and 'npm run develop'"
+# npm run develop
