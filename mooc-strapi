@@ -44,7 +44,7 @@ cp -R ../mooc-strapi-resources/src ./admin
 cp -R ../mooc-strapi-resources/config/env ./config
 cp ../mooc-strapi-resources/config/plugins.js ./config/plugins.js
 cp ../mooc-strapi-resources/publish-heroku ./publish-heroku
-echo '.package-lock.json' >> .gitignore
+echo 'package-lock.json' >> .gitignore
 echo "building the project"
 npm run build
 echo "Project created successfully!"
