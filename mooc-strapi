@@ -31,12 +31,12 @@ if [ -z AWS_ACCESS_KEY_ID ]
 then
 exit 1
 fi
-npx create-strapi-app@3.5.3 $project_name --quickstart --no-run
+npx create-strapi-app@3.6.6 $project_name --quickstart --no-run
 cd $project_name
 echo "AWS_BUCKET=${bucket_name}" > .env
 echo "AWS_ACCESS_KEY_ID=${AWS_ACCESS_KEY_ID}" >> .env
 echo "AWS_ACCESS_SECRET=${AWS_ACCESS_SECRET}" >> .env
-npm install strapi-provider-upload-aws-s3@3.5.3 --save
+npm install strapi-provider-upload-aws-s3@3.6.6 --save
 npm install mysql --save
 npm install connection-string --save
 mkdir admin
