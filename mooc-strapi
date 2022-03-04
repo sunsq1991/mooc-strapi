@@ -31,16 +31,19 @@ if [ -z AWS_ACCESS_KEY_ID ]
 then
 exit 1
 fi
-npx create-strapi-app@3.6.6 $project_name --quickstart --no-run
+npx create-strapi-app@4.1.2 $project_name --quickstart --no-run
+# npx create-strapi-app@latest $project_name --template https://github.com/sunsq1991/strapi-template-mooc --quickstart --no-run
 cd $project_name
-echo "AWS_BUCKET=${bucket_name}" > .env
+echo "AWS_BUCKET=${bucket_name}" >> .env
 echo "AWS_ACCESS_KEY_ID=${AWS_ACCESS_KEY_ID}" >> .env
 echo "AWS_ACCESS_SECRET=${AWS_ACCESS_SECRET}" >> .env
-npm install strapi-provider-upload-aws-s3@3.6.6 --save
-npm install mysql --save
-npm install connection-string --save
-mkdir admin
-cp -R ../mooc-strapi-resources/src ./admin
+npm install @strapi/provider-email-sendgrid@4.1.2 --save
+npm install @strapi/provider-upload-aws-s3@4.1.2 --save
+npm install pg --save
+npm install pg-connection-string --save
+cp ../mooc-strapi-resources/src/admin/app.js ./src/admin/app.js
+cp ../mooc-strapi-resources/public/logo.svg ./public/logo.svg
+cp -R ../mooc-strapi-resources/config/env ./config
 cp -R ../mooc-strapi-resources/config/database.js ./config/database.js
 cp ../mooc-strapi-resources/config/plugins.js ./config/plugins.js
 cp ../mooc-strapi-resources/publish-heroku ./publish-heroku

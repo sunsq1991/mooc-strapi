@@ -1,23 +1,20 @@
-const {ConnectionString} = require('connection-string');
+const parse = require('pg-connection-string').parse;
 
 module.exports = ({ env }) => {
-  const db = new ConnectionString(env('JAWSDB_URL', 'mysql://root:root@localhost:3306/test'));
+  const config = parse(
+    env("DATABASE_URL", "postgres://postgres:postgres@127.0.0.1:5432/mooc-strapi-template")
+  );
   return {
-    defaultConnection: 'default',
-    connections: {
-      default: {
-        connector: 'bookshelf',
-        settings: {
-          client: 'mysql',
-          host: db.hosts[0].name,
-          port: db.hosts[0].port,
-          database: db.path[0],
-          username: db.user,
-          password: db.password,
-          ssl: env.bool('DATABASE_SSL', false)
-        },
-        options: {}
+    connection: {
+      client: 'postgres',
+      connection: {
+        host: config.host,
+        port: config.port,
+        database: config.database,
+        user: config.user,
+        password: config.password,
+        ssl: env.bool('DATABASE_SSL', false),
       },
-    },
-  };
-}
+    }
+  }
+};

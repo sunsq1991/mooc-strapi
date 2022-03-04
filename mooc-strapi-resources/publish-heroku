@@ -15,11 +15,13 @@ fi
 git init
 git add .
 git commit -m "Initial Commit"
-heroku addons:create jawsdb -a $app_name
+heroku addons:create heroku-postgresql:hobby-dev -a $app_name
 
 env=`cat .env`
 echo "$env"
 heroku config:set $env -a $app_name
+heroku config:set NODE_ENV=production -a $app_name
+# heroku config:set MY_HEROKU_URL=$(heroku info -s | grep web_url | cut -d= -f2) -a $app_name
 
 heroku git:remote -a $app_name
 git push heroku master
