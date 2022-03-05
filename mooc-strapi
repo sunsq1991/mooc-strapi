@@ -46,6 +46,7 @@ cp ../mooc-strapi-resources/public/logo.svg ./public/logo.svg
 cp -R ../mooc-strapi-resources/config/env ./config
 cp -R ../mooc-strapi-resources/config/database.js ./config/database.js
 cp ../mooc-strapi-resources/config/plugins.js ./config/plugins.js
+cp ../mooc-strapi-resources/config/server.js ./config/server.js
 cp ../mooc-strapi-resources/publish-heroku ./publish-heroku
 echo 'package-lock.json' >> .gitignore
 echo 'yarn.lock' >> .gitignore
