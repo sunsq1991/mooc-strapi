@@ -21,8 +21,10 @@ env=`cat .env`
 echo "$env"
 heroku config:set $env -a $app_name
 heroku config:set NODE_ENV=production -a $app_name
-# heroku config:set MY_HEROKU_URL=$(heroku info -s | grep web_url | cut -d= -f2) -a $app_name
 
 heroku git:remote -a $app_name
 git push heroku master
+heroku config:unset HOST
+heroku config:unset PORT
+heroku config:set MY_HEROKU_URL=$(heroku info -s | grep web_url | cut -d= -f2) -a $app_name
 heroku open -a $app_name
