@@ -1,7 +1,7 @@
 module.exports = ({ env }) => ({
-  "users-permissions": {
+  'users-permissions': {
     config: {
-      jwtSecret: env("JWT_SECRET"),
+      jwtSecret: env('JWT_SECRET'),
     },
   },
   upload: {
@@ -30,4 +30,7 @@ module.exports = ({ env }) => ({
       },
     },
   },
-});
+  ckeditor: {
+    enabled: true,
+  },
+})
