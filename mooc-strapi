@@ -31,24 +31,33 @@ if [ -z AWS_ACCESS_KEY_ID ]
 then
 exit 1
 fi
-npx create-strapi-app@4.1.12 $project_name --quickstart --no-run
+npx create-strapi-app@4.2.0 $project_name --quickstart --no-run
 # npx create-strapi-app@latest $project_name --template https://github.com/sunsq1991/strapi-template-mooc --quickstart --no-run
 cd $project_name
 echo "AWS_BUCKET=${bucket_name}" >> .env
 echo "AWS_ACCESS_KEY_ID=${AWS_ACCESS_KEY_ID}" >> .env
 echo "AWS_ACCESS_SECRET=${AWS_ACCESS_SECRET}" >> .env
-npm install @strapi/provider-email-sendgrid@4.1.12 --save
-npm install @strapi/provider-upload-aws-s3@4.1.12 --save
+npm install @strapi/provider-email-sendgrid@4.2.0 --save
+npm install @strapi/provider-upload-aws-s3@4.2.0 --save
 npm install pg --save
 npm install pg-connection-string --save
+# add dependencies for fixing runtime error
 npm install --save @babel/polyfill
 npm install --save @babel/runtime
+# add ckeditor5 as default richtext editor
+npm install @_sh/strapi-plugin-ckeditor
+# 自定义admin登录界面
 cp ../mooc-strapi-resources/src/admin/app.js ./src/admin/app.js
+# 自定义Logo
 cp ../mooc-strapi-resources/public/logo.svg ./public/logo.svg
+
 cp -R ../mooc-strapi-resources/config/env ./config
 cp -R ../mooc-strapi-resources/config/database.js ./config/database.js
+
 cp ../mooc-strapi-resources/config/plugins.js ./config/plugins.js
 cp ../mooc-strapi-resources/config/server.js ./config/server.js
+cp ../mooc-strapi-resources/config/middlewares.js ./config/middlewares.js
+
 cp ../mooc-strapi-resources/publish-heroku ./publish-heroku
 echo 'package-lock.json' >> .gitignore
 echo 'yarn.lock' >> .gitignore
