@@ -46,6 +46,8 @@ npm install --save @babel/polyfill
 npm install --save @babel/runtime
 # add ckeditor5 as default richtext editor
 npm install @_sh/strapi-plugin-ckeditor
+# uninstall sqlite3
+npm uninstall better-sqlite3
 # 自定义admin登录界面
 cp ../mooc-strapi-resources/src/admin/app.js ./src/admin/app.js
 # 自定义Logo

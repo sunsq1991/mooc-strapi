@@ -3,22 +3,19 @@ export default {
     auth: {
       logo: '/logo.svg',
     },
-    locales: [
-      'zh-Hans',
-      'zh',
-    ],
+    locales: ['zh-Hans', 'zh'],
     translations: {
       en: {
-        'Auth.form.welcome.subtitle': 'Log in to your Mooc account',
-        'app.components.LeftMenu.navbrand.title': 'Mooc Dashboard',
+        'Auth.form.welcome.subtitle': 'Log in to your account',
+        'app.components.LeftMenu.navbrand.title': 'Dashboard',
       },
       zh: {
-        'Auth.form.welcome.subtitle': '登入你的 Mooc 帳號',
-        'app.components.LeftMenu.navbrand.title': 'Mooc 控制台',
+        'Auth.form.welcome.subtitle': '登入你的帳號',
+        'app.components.LeftMenu.navbrand.title': '控制台',
       },
       'zh-Hans': {
-        'Auth.form.welcome.subtitle': '登录您的Mooc账户',
-        'app.components.LeftMenu.navbrand.title': 'Mooc Dashboard',
+        'Auth.form.welcome.subtitle': '登录您的账户',
+        'app.components.LeftMenu.navbrand.title': '控制台',
       },
     },
     menu: {
@@ -34,6 +31,5 @@ export default {
     //   }
     // }
   },
-  bootstrap(app) {
-  },
-};
+  bootstrap(app) {},
+}
